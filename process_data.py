@@ -1,11 +1,12 @@
 import re
-import csv
+# import csv
 
-data = open("readed.csv", "r")
+# data = open("readed.csv", "r")
+
+# for twit in data:
+#   tweets.append(str(twit).strip())
+
 tweets = []
-
-for twit in data:
-  tweets.append(str(twit).strip())
 
 # print tweets
 
@@ -57,8 +58,8 @@ def turnOnLight(_emotionType):
 	print _emotionType + "is ON"
 
 # This function displays information gathered from Tweets and uses turnOnLight function to do so
-def display():
-
+def display(tws):
+  tweets = tws
   # Creates int variables for each emotion.  The value of each variable is equal to the number of tweets reflecting that emotion 
   happy = tweetListFilter(tweets, happySyn)
   sad = tweetListFilter(tweets, sadSyn)
@@ -70,37 +71,40 @@ def display():
   # !!!!Remember to turn all lights off
 
   
-if totalCount == 0:
-	print "No Tweets" 
-else:
-    print "Number of happy tweets: " + str(happy)
-  	print "Number of sad tweets: " + str(sad)
-    print "Number of angry tweets: " + str(angry) + "\n"
+  if totalCount == 0:
+  	print "No Tweets" 
+  else:
+      print "Number of happy tweets: " + str(happy)
+    	print "Number of sad tweets: " + str(sad)
+      print "Number of angry tweets: " + str(angry) + "\n"
 
-# Variable that stores an array of happy, sad, and angry tweet numbers
-colorVal = [happy, sad, angry]
+  # Variable that stores an array of happy, sad, and angry tweet numbers
+  colorVal = [happy, sad, angry]
 
-# Variable used to transmit information to the hardward
-ledLightReference = ['Happy', 'Sad', 'Angry']
+  # Variable used to transmit information to the hardward
+  ledLightReference = ['Happy', 'Sad', 'Angry']
 
-# maxVal will be used later to keep track of which emotion has the largest value
-maxVal = happy
+  # maxVal will be used later to keep track of which emotion has the largest value
+  maxVal = happy
 
-# Assigns variable maxVal to the greatest number in colorVal array.  
-#This is the largest number of tweets associated with a particular emotions
-i = 1
-while (i < 3):
-	if int(colorVal[i]) > maxVal:
-		maxVal = colorVal[i]
-	i = i + 1
+  # Assigns variable maxVal to the greatest number in colorVal array.  
+  #This is the largest number of tweets associated with a particular emotions
+  i = 1
+  while (i < 3):
+  	if int(colorVal[i]) > maxVal:
+  		maxVal = colorVal[i]
+  	i = i + 1
 
 
-# Checks the number of tweets associated with each emotion.
-#If the number of tweets is equal to maxVal, turn the lights on for that emotion
-j = 0
-while (j < 3):
-	if int(colorVal[j]) == maxVal:
-		turnOnLight(ledLightReference[j])
-	j = j + 1
+  # Checks the number of tweets associated with each emotion.
+  #If the number of tweets is equal to maxVal, turn the lights on for that emotion
+  j = 0
+  maxInd = 0
+  while (j < 3):
+  	if int(colorVal[j]) == maxVal:
+  		# turnOnLight(ledLightReference[j])
+      maxInd = j
+  	j = j + 1
 
-display()
+  return maxInd
+# display()
